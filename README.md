@@ -1,10 +1,10 @@
-# GeoHash
+# Geohash
 [![Build Status](https://travis-ci.org/Eleme/geohash.png?branch=master)](https://travis-ci.org/Eleme/geohash)
 
 Simple php geohash class
 
 ### Install
-You may install GeoHash with Composer (recommended) or manually.
+You may install Geohash with Composer (recommended) or manually.
 
 ```json
 require: {
