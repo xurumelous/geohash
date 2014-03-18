@@ -1,69 +1,36 @@
 # GeoHash
 
-Simple php geohash class like python-geohash.
-
-
-## Getting Started
+Simple php geohash class
 
 ### Install
 You may install GeoHash with Composer (recommended) or manually.
 
-Just add 'geo/geohash' to your composer.json and run `composer install`.
-
-### System Requirements
-You need **PHP >= 5.4.0**.
+```json
+require: {
+    "geohash/geohash": "dev-master"
+}
+```
 
 ### Usage
-Encode a coordinate:
+Encode a coordinates:
 
-    use Geo\GeoHash;
-    echo GeoHash::encode(117.031689,36.65396);
+```php
+<?php
+require "vendor/autoload.php";
 
-The result is wwe0x0euu12.
+use Geohash\Geohash;
 
-The default precision is 0.00001 which can be changed by the third parameter
-of encode method.
+echo Geohash::encode(31.283131, 121.500831); // wtw3uyfjqw61
+```
 
-Find the neighbors for a given geohash:
+Decode a geohash:
 
-    use Geo\GeoHash;
-    var_dump(GeoHash::expand('wwe0x0'));
+```php
+<?php
+require "vendor/autoload.php";
 
-and the result is:
+use Geohash\Geohash;
 
-    array(8) {
-      [0] =>
-      string(11) "wwe0wc7zzzz"
-      [1] =>
-      string(11) "wwe0x17zzzz"
-      [2] =>
-      string(11) "wwe0x37zzzz"
-      [3] =>
-      string(11) "wwe0wb7zzzz"
-      [4] =>
-      string(11) "wwe0x27zzzz"
-      [5] =>
-      string(11) "wwe0qz7zzzz"
-      [6] =>
-      string(11) "wwe0rp7zzzz"
-      [7] =>
-      string(11) "wwe0rr7zzzz"
-    }
-
-Decode a geohash string:
-
-    Use Geo\GeoHash;
-    var_dump(GeoHash::decode('wwe0x0'));
-
-and the result is:
-
-    array(4) {
-      [0] =>
-      double(117.0263671875)    # min longitude
-      [1] =>
-      double(117.03735351562)   # max longitude
-      [2] =>
-      double(36.650390625)      # min latitude
-      [3] =>
-      double(36.655883789062)   # max latitude
-    }
+list($lat, $lng) = Geohash::decode('wtw3uyfjqw61');
+echo $lat, ', ', $lng; // 31.283131, 121.500831
+```
