@@ -1,4 +1,5 @@
 # GeoHash
+[![Build Status](https://travis-ci.org/Eleme/geohash.png?branch=master)](https://travis-ci.org/Eleme/geohash)
 
 Simple php geohash class
 
