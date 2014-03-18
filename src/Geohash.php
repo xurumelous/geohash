@@ -4,9 +4,7 @@ namespace Geohash;
 class Geohash
 {
     private static $table = "0123456789bcdefghjkmnpqrstuvwxyz";
-    private static $bits = array(
-        0b10000, 0b01000, 0b00100, 0b00010, 0b00001
-    );
+    private static $bits = array(16, 8, 4, 2, 1);
 
     public static function encode($lat, $lng, $prec = null)
     {
@@ -21,7 +19,7 @@ class Geohash
         $hash = array();
         $error = 180;
         $isEven = true;
-        $chr = 0b00000;
+        $chr = 0;
         $b = 0;
 
         while ($error >= $prec) {
@@ -50,7 +48,7 @@ class Geohash
                 $hash[] = self::$table[$chr];
                 $error = max($maxlng - $minlng, $maxlat - $minlat);
                 $b = 0;
-                $chr = 0b00000;
+                $chr = 0;
             }
         }
 
