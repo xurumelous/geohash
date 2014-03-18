@@ -63,6 +63,8 @@ class GeoHash
         $maxlng = 180;
         $minlat = -90;
         $maxlat = 90;
+        $latE = 90;
+        $lngE = 180;
 
         for ($i=0,$c=strlen($hash); $i<$c; $i++) {
             $v = strpos(self::$table, $hash[$i]);
@@ -92,6 +94,8 @@ class GeoHash
                 } else {
                     $maxlat = ($minlat + $maxlat) / 2;
                 }
+                $latE /= 8;
+                $lngE /= 4;
             } else {
                 if (16&$v) {
                     $minlng = ($minlng + $maxlng) / 2;
@@ -118,9 +122,13 @@ class GeoHash
                 } else {
                     $maxlng = ($minlng + $maxlng) / 2;
                 }
+                $latE /= 4;
+                $lngE /= 8;
             }
         }
+        $lat = round(($minlat + $maxlat) / 2, max(1, -round(log10($latE))) - 1);
+        $lng = round(($minlng + $maxlng) / 2, max(1, -round(log10($lngE))) - 1);
 
-        return array(($minlat + $maxlat) / 2, ($minlng + $maxlng) / 2);
+        return array($lat, $lng);
     }
 }
