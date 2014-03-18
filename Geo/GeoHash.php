@@ -8,8 +8,11 @@ class GeoHash
         0b10000, 0b01000, 0b00100, 0b00010, 0b00001
     );
 
-    public static function encode($lng, $lat, $prec = 0.00001)
+    public static function encode($lat, $lng, $prec = null)
     {
+        $lap = strlen($lat) - strpos($lat, ".");
+        $lop = strlen($lng) - strpos($lng, ".");
+        $prec = $prec ?: pow(10, -max($lap-1, $lop-1, 0))/2;
         $minlng = -180;
         $maxlng = 180;
         $minlat = -90;
@@ -54,42 +57,6 @@ class GeoHash
         return join('', $hash);
     }
 
-    public static function expand($hash)
-    {
-        list($minlng, $maxlng, $minlat, $maxlat) = self::decode($hash);
-        $dlng = ($maxlng - $minlng) / 2;
-        $dlat = ($maxlat - $minlat) / 2;
-
-        return array(
-            self::encode($minlng - $dlng, $maxlat + $dlat),
-            self::encode($minlng + $dlng, $maxlat + $dlat),
-            self::encode($maxlng + $dlng, $maxlat + $dlat),
-            self::encode($minlng - $dlng, $maxlat - $dlat),
-            self::encode($maxlng + $dlng, $maxlat - $dlat),
-            self::encode($minlng - $dlng, $minlat - $dlat),
-            self::encode($minlng + $dlng, $minlat - $dlat),
-            self::encode($maxlng + $dlng, $minlat - $dlat),
-        );
-    }
-
-    public static function getRect($hash)
-    {
-        list($minlng, $maxlng, $minlat, $maxlat) = self::decode($hash);
-
-        return array(
-            array($minlng, $minlat),
-            array($minlng, $maxlat),
-            array($maxlng, $maxlat),
-            array($maxlng, $minlat),
-        );
-    }
-
-    /**
-     * decode a geohash string to a geographical area
-     *
-     * @var $hash string geohash
-     * @return array array($minlng, $maxlng, $minlat, $maxlat);
-     */
     public static function decode($hash)
     {
         $minlng = -180;
@@ -154,6 +121,6 @@ class GeoHash
             }
         }
 
-        return array($minlng, $maxlng, $minlat, $maxlat);
+        return array(($minlat + $maxlat) / 2, ($minlng + $maxlng) / 2);
     }
 }
