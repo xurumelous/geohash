@@ -1,15 +1,19 @@
 {
-    "name": "geo/geohash",
+    "name": "geohash/geohash",
     "type": "library",
-    "description": "geohash like python-geohash",
+    "description": "geohash package",
     "keywords": ["geohash"],
-    "homepage": "http://github.com/jlyu/geohash",
+    "homepage": "http://github.com/Eleme/geohash",
     "license": "MIT",
     "authors": [
         {
             "name": "Jefferson Lyu",
             "email": "jefferson.lyu@gmail.com",
             "homepage": "https://github.com/jlyu"
+        },
+        {
+            "name": "thbourlove",
+            "email": "thbourlove@gmail.com"
         }
     ],
     "require": {
@@ -19,8 +23,9 @@
         "phpunit/phpunit": "~3.7"
     },
     "autoload": {
-        "psr-0": {
-            "Geo": "."
+        "psr-4": {
+            "Geohash\\": "src",
+            "Geohash\\Tests\\": "tests"
         }
     }
 }

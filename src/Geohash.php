@@ -1,7 +1,7 @@
 <?php
-namespace Geo;
+namespace Geohash;
 
-class GeoHash
+class Geohash
 {
     private static $table = "0123456789bcdefghjkmnpqrstuvwxyz";
     private static $bits = array(
