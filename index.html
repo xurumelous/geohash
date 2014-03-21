@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Geohash : simple php geohash encoder/decoder" />
+    <meta name="description" content="Geohash : php geohash encoder/decoder" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -19,7 +19,7 @@
           <a id="forkme_banner" href="https://github.com/Eleme/geohash">View on GitHub</a>
 
           <h1 id="project_title">Geohash</h1>
-          <h2 id="project_tagline">simple php geohash encoder/decoder</h2>
+          <h2 id="project_tagline">php geohash encoder/decoder</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/Eleme/geohash/zipball/master">Download this project as a .zip file</a>
@@ -36,22 +36,22 @@
 
 <p><a href="https://travis-ci.org/Eleme/geohash"><img src="https://travis-ci.org/Eleme/geohash.png?branch=master" alt="Build Status"></a></p>
 
-<p>Simple php geohash class</p>
+<p>php geohash encoder/decoder</p>
 
 <h3>
 <a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h3>
 
-<p>You may install Geohash with Composer (recommended) or manually.</p>
+<p>Install Geohash with Composer.</p>
 
 <div class="highlight highlight-json"><pre><span class="err">require:</span> <span class="p">{</span>
-    <span class="nt">"geohash/geohash"</span><span class="p">:</span> <span class="s2">"dev-master"</span>
+    <span class="nt">"geohash/geohash"</span><span class="p">:</span> <span class="s2">"1.0"</span>
 <span class="p">}</span>
 </pre></div>
 
 <h3>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
 
-<p>Encode a coordinates:</p>
+<p>Encode a coordinate:</p>
 
 <div class="highlight highlight-php"><pre><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">require</span> <span class="s2">"vendor/autoload.php"</span><span class="p">;</span>
@@ -61,7 +61,7 @@
 <span class="k">echo</span> <span class="nx">Geohash</span><span class="o">::</span><span class="na">encode</span><span class="p">(</span><span class="mf">31.283131</span><span class="p">,</span> <span class="mf">121.500831</span><span class="p">);</span> <span class="c1">// wtw3uyfjqw61</span>
 </pre></div>
 
-<p>Decode a geohash:</p>
+<p>Decode a Geohash:</p>
 
 <div class="highlight highlight-php"><pre><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">require</span> <span class="s2">"vendor/autoload.php"</span><span class="p">;</span>
