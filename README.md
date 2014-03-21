@@ -1,19 +1,19 @@
 # Geohash
 [![Build Status](https://travis-ci.org/Eleme/geohash.png?branch=master)](https://travis-ci.org/Eleme/geohash)
 
-Simple php geohash class
+php geohash encoder/decoder
 
 ### Install
-You may install Geohash with Composer (recommended) or manually.
+Install Geohash with Composer.
 
 ```json
 require: {
-    "geohash/geohash": "dev-master"
+    "geohash/geohash": "1.0"
 }
 ```
 
 ### Usage
-Encode a coordinates:
+Encode a coordinate:
 
 ```php
 <?php
@@ -24,7 +24,7 @@ use Geohash\Geohash;
 echo Geohash::encode(31.283131, 121.500831); // wtw3uyfjqw61
 ```
 
-Decode a geohash:
+Decode a Geohash:
 
 ```php
 <?php
