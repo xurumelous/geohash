@@ -3,8 +3,53 @@ namespace Geohash;
 
 class Geohash
 {
+    const ODD = 'odd';
+    const EVEN = 'even';
+    const DIRECTION_TOP = 'top';
+    const DIRECTION_BOTTOM = 'bottom';
+    const DIRECTION_LEFT = 'left';
+    const DIRECTION_RIGHT = 'right';
+
     private static $table = "0123456789bcdefghjkmnpqrstuvwxyz";
     private static $bits = array(16, 8, 4, 2, 1);
+
+    private static $neighbors = array(
+        self::DIRECTION_RIGHT => array(
+            self::EVEN => 'bc01fg45238967deuvhjyznpkmstqrwx',
+            self::ODD => 'p0r21436x8zb9dcf5h7kjnmqesgutwvy',
+        ),
+        self::DIRECTION_LEFT => array(
+            self::EVEN =>  '238967debc01fg45kmstqrwxuvhjyznp',
+            self::ODD => '14365h7k9dcfesgujnmqp0r2twvyx8zb',
+        ),
+        self::DIRECTION_TOP => array(
+            self::EVEN =>  'p0r21436x8zb9dcf5h7kjnmqesgutwvy',
+            self::ODD => 'bc01fg45238967deuvhjyznpkmstqrwx',
+        ),
+        self::DIRECTION_BOTTOM => array(
+            self::EVEN =>  '14365h7k9dcfesgujnmqp0r2twvyx8zb',
+            self::ODD => '238967debc01fg45kmstqrwxuvhjyznp',
+        ),
+    );
+
+    private static $borders = array(
+        self::DIRECTION_RIGHT => array(
+            self::EVEN => 'bcfguvyz',
+            self::ODD => 'prxz',
+        ),
+        self::DIRECTION_LEFT => array(
+            self::EVEN => '0145hjnp',
+            self::ODD => '028b',
+        ),
+        self::DIRECTION_TOP => array(
+            self::EVEN => 'prxz',
+            self::ODD => 'bcfguvyz',
+        ),
+        self::DIRECTION_BOTTOM => array(
+            self::EVEN => '028b',
+            self::ODD => '0145hjnp',
+        ),
+    );
 
     public static function encode($lat, $lng, $prec = null)
     {
@@ -128,5 +173,19 @@ class Geohash
         $lng = round(($minlng + $maxlng) / 2, max(1, -round(log10($lngE))) - 1);
 
         return array($lat, $lng);
+    }
+
+    public static function calculateAdjacent($hash, $direction)
+    {
+        $hash = strtolower($hash);
+        $lastChar = substr($hash, -1);
+        $type = strlen($hash) % 2 ? self::ODD : self::EVEN;
+        $base = substr($hash, 0, -1);
+
+        if (!empty($base) && strpos(self::$borders[$direction][$type], $lastChar) !== false) {
+            $base = self::calculateAdjacent($base, $direction);
+        }
+
+        return $base . self::$table[strpos(self::$neighbors[$direction][$type], $lastChar)];
     }
 }
