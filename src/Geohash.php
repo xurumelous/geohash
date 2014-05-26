@@ -175,6 +175,11 @@ class Geohash
         return array($lat, $lng);
     }
 
+    /**
+     * Based on David Troy implementation
+     *
+     * @link https://github.com/davetroy/geohash-js Original implementation in javascript
+     */
     public static function calculateAdjacent($hash, $direction)
     {
         $hash = strtolower($hash);
