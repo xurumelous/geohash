@@ -30,6 +30,14 @@ class GeohashTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider neighborProvider
+     */
+    public function testGetNeighbors($hash, $neighbors)
+    {
+        $this->assertEquals($neighbors, Geohash::getNeighbors($hash));
+    }
+
+    /**
      * All data come from http://geohash.org
      */
     public function provider()
@@ -74,6 +82,23 @@ class GeohashTest extends \PHPUnit_Framework_TestCase
             array('zzpgxc', Geohash::DIRECTION_RIGHT, 'bp0581'),
 
             array('bp0581', Geohash::DIRECTION_LEFT, 'zzpgxc'),
+        );
+    }
+
+    public function neighborProvider()
+    {
+        return array(
+            array('r3gx0', array(
+                    'r3gx2', // Top
+                    'r3gx3', // Top Right
+                    'r3gx1', // Right
+                    'r3gwc', // Bottom Right
+                    'r3gwb', // Bottom
+                    'r3gqz', // Bottom Left
+                    'r3grp', // Left
+                    'r3grr', // Top Left
+                ),
+            ),
         );
     }
 }

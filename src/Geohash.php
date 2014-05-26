@@ -193,4 +193,23 @@ class Geohash
 
         return $base . self::$table[strpos(self::$neighbors[$direction][$type], $lastChar)];
     }
+
+    public static function getNeighbors($hash)
+    {
+        $top = self::calculateAdjacent($hash, self::DIRECTION_TOP);
+        $bottom = self::calculateAdjacent($hash, self::DIRECTION_BOTTOM);
+
+        $neighbors = array(
+            $top,
+            self::calculateAdjacent($top, self::DIRECTION_RIGHT),
+            self::calculateAdjacent($hash, self::DIRECTION_RIGHT),
+            self::calculateAdjacent($bottom, self::DIRECTION_RIGHT),
+            $bottom,
+            self::calculateAdjacent($bottom, self::DIRECTION_LEFT),
+            self::calculateAdjacent($hash, self::DIRECTION_LEFT),
+            self::calculateAdjacent($top, self::DIRECTION_LEFT),
+        );
+
+        return $neighbors;
+    }
 }
