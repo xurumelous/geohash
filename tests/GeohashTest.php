@@ -10,7 +10,7 @@ class GeohashTest extends \PHPUnit_Framework_TestCase
      */
     public function testEncode($lat, $lng, $geohash)
     {
-        $this->assertEquals(Geohash::encode($lat, $lng), $geohash);
+        $this->assertEquals($geohash, Geohash::encode($lat, $lng));
     }
 
     /**
@@ -18,7 +18,7 @@ class GeohashTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecode($lat, $lng, $geohash)
     {
-        $this->assertEquals(Geohash::decode($geohash), array($lat, $lng));
+        $this->assertEquals(array($lat, $lng), Geohash::decode($geohash));
     }
 
     /**
