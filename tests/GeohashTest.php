@@ -32,9 +32,9 @@ class GeohashTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider neighborProvider
      */
-    public function testGetNeighbors($hash, $neighbors)
+    public function testGetNeighbors($hash, $layer, $neighbors)
     {
-        $this->assertEquals($neighbors, Geohash::getNeighbors($hash));
+        $this->assertEquals($neighbors, Geohash::getNeighbors($hash, $layer));
     }
 
     /**
@@ -88,7 +88,7 @@ class GeohashTest extends \PHPUnit_Framework_TestCase
     public function neighborProvider()
     {
         return array(
-            array('r3gx0', array(
+            array('r3gx0', 1, array(
                     'r3gx2', // Top
                     'r3gx3', // Top Right
                     'r3gx1', // Right
@@ -97,6 +97,52 @@ class GeohashTest extends \PHPUnit_Framework_TestCase
                     'r3gqz', // Bottom Left
                     'r3grp', // Left
                     'r3grr', // Top Left
+                ),
+            ),
+            array('r3gx0', 2, array(
+                    'r3gx8',
+                    'r3gx9',
+                    'r3gxd',
+                    'r3gx6',
+                    'r3gx4',
+                    'r3gwf',
+                    'r3gwd',
+                    'r3gw9',
+                    'r3gw8',
+                    'r3gqx',
+                    'r3gqw',
+                    'r3gqy',
+                    'r3grn',
+                    'r3grq',
+                    'r3grw',
+                    'r3grx',
+                ),
+            ),
+            array('r3gx0', 3, array(
+                    'r3gxb',
+                    'r3gxc',
+                    'r3gxf',
+                    'r3gxg',
+                    'r3gxe',
+                    'r3gx7',
+                    'r3gx5',
+                    'r3gwg',
+                    'r3gwe',
+                    'r3gw7',
+                    'r3gw6',
+                    'r3gw3',
+                    'r3gw2',
+                    'r3gqr',
+                    'r3gqq',
+                    'r3gqm',
+                    'r3gqt',
+                    'r3gqv',
+                    'r3grj',
+                    'r3grm',
+                    'r3grt',
+                    'r3grv',
+                    'r3gry',
+                    'r3grz',
                 ),
             ),
         );
