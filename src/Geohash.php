@@ -194,21 +194,46 @@ class Geohash
         return $base . self::$table[strpos(self::$neighbors[$direction][$type], $lastChar)];
     }
 
-    public static function getNeighbors($hash)
+    public static function getNeighbors($hash, $layer = 1)
     {
-        $top = self::calculateAdjacent($hash, self::DIRECTION_TOP);
-        $bottom = self::calculateAdjacent($hash, self::DIRECTION_BOTTOM);
+        $neighbors = [];
 
-        $neighbors = array(
-            $top,
-            self::calculateAdjacent($top, self::DIRECTION_RIGHT),
-            self::calculateAdjacent($hash, self::DIRECTION_RIGHT),
-            self::calculateAdjacent($bottom, self::DIRECTION_RIGHT),
-            $bottom,
-            self::calculateAdjacent($bottom, self::DIRECTION_LEFT),
-            self::calculateAdjacent($hash, self::DIRECTION_LEFT),
-            self::calculateAdjacent($top, self::DIRECTION_LEFT),
-        );
+        $currentHash = $hash;
+        // Go Up
+        for ($i = 0; $i < $layer; $i++) {
+            $currentHash = self::calculateAdjacent($currentHash, self::DIRECTION_TOP);
+        }
+        $neighbors[] = $currentHash;
+
+        // Go Right
+        for ($i = 0; $i < $layer; $i++) {
+            $currentHash = self::calculateAdjacent($currentHash, self::DIRECTION_RIGHT);
+            $neighbors[] = $currentHash;
+        }
+
+        // Go Down
+        for ($i = 0; $i < $layer * 2; $i++) {
+            $currentHash = self::calculateAdjacent($currentHash, self::DIRECTION_BOTTOM);
+            $neighbors[] = $currentHash;
+        }
+
+        // Go Left
+        for ($i = 0; $i < $layer * 2; $i++) {
+            $currentHash = self::calculateAdjacent($currentHash, self::DIRECTION_LEFT);
+            $neighbors[] = $currentHash;
+        }
+
+        // Go Up Again
+        for ($i = 0; $i < $layer * 2; $i++) {
+            $currentHash = self::calculateAdjacent($currentHash, self::DIRECTION_TOP);
+            $neighbors[] = $currentHash;
+        }
+
+        // Go Right Again
+        for ($i = 0; $i < $layer - 1; $i++) {
+            $currentHash = self::calculateAdjacent($currentHash, self::DIRECTION_RIGHT);
+            $neighbors[] = $currentHash;
+        }
 
         return $neighbors;
     }
